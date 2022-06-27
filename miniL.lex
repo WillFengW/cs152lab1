@@ -67,6 +67,9 @@ ID       [_a-zA-Z0-9]
 [ \t]+         {/* ignore spaces */ currPos += yyleng;}
 "\n"           {currLine++; currPos = 1;}
 .              {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
+^[_]+          {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
+^[{DIGIT}]+    {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
+
 
 %%
 
