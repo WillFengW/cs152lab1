@@ -5,9 +5,9 @@
 %}
 
 DIGIT    [0-9]
-ID       [a-zA-Z]|[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]
-E_ID_1   [0-9_][a-zA-Z0-9_]*
-E_ID_2   [a-zA-Z][a-zA-Z0-9_]*[_]
+ID       [a-zA-Z]|[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]          
+E_ID_1   [0-9_][a-zA-Z0-9_]*                                
+E_ID_2   [a-zA-Z][a-zA-Z0-9_]*[_]                           
 COMMENT  ##.*
 
 %%
@@ -71,7 +71,7 @@ COMMENT  ##.*
 "\n"           {currLine++; currPos = 1;}
 .              {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 {E_ID_1}+      {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
-{E_ID_2}+      {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
+{E_ID_2}+      {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(0);}
 {COMMENT}+     {currLine++; currPos = 1;}
 
 %%
